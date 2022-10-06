@@ -12,6 +12,9 @@ function FormsRoute() {
       <Link to="start-case-review">
         <button className="btn btn-primary m-2">Start case review</button>
       </Link>
+      <Link to="investment-review">
+        <button className="btn btn-primary m-2">Investment Review</button>
+      </Link>
     </>
   )
 }

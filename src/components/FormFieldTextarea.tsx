@@ -11,7 +11,7 @@ function FormFieldTextarea(props: IFormFieldTextarea) {
         {props.label}
       </label>
       <textarea
-        className="textarea mt-1 w-64"
+        className="textarea mt-1"
         placeholder="Enter a value"
         name={props.id}
         id={props.id}

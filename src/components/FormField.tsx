@@ -1,3 +1,4 @@
+import FormFieldButton, { IFormFieldButton } from "./FormFieldButton"
 import FormFieldCheckbox, { IFormFieldCheckbox } from "./FormFieldCheckbox"
 import FormFieldFile, { IFormFieldFile } from "./FormFieldFile"
 import FormFieldInput, { IFormFieldInput } from "./FormFieldInput"
@@ -14,6 +15,7 @@ export interface IFormField {
     | IFormFieldSelect
     | IFormFieldFile
     | IFormFieldTextarea
+    | IFormFieldButton
 }
 
 function FormField(props: IFormField) {
@@ -30,6 +32,8 @@ function FormField(props: IFormField) {
       return <FormFieldFile {...props.field} />
     case "FORM_FIELD_TEXTAREA":
       return <FormFieldTextarea {...props.field} />
+    case "FORM_FIELD_BUTTON":
+      return <FormFieldButton {...props.field} />
   }
 }
 

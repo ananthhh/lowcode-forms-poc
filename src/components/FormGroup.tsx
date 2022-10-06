@@ -12,10 +12,10 @@ function FormGroup(props: IFormGroup) {
   return (
     <div
       id={id}
-      className="collapse collapse-open collapse-plus rounded-box mb-4 border border-base-300 bg-base-200"
+      className="collapse collapse-open collapse-plus rounded-box mb-4 border border-base-300 bg-base-300"
     >
       <h2 className="collapse-title text-xl font-medium">{title}</h2>
-      <div className="collapse-content bg-base-100">
+      <div className="collapse-content bg-base-200">
         {components.map((c) => (
           <FormField {...c} />
         ))}
