@@ -7,11 +7,21 @@ import "./index.css"
 import DaisyRoute from "./routes/demo-daisy"
 import RadixRoute from "./routes/demo-radix"
 import DemoRoute from "./routes/demo"
+import FormsRoute from "./routes/forms"
+import FormsViewRoute from "./routes/forms-view"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+  },
+  {
+    path: "/forms",
+    element: <FormsRoute />,
+  },
+  {
+    path: "/forms/:id",
+    element: <FormsViewRoute />,
   },
   {
     path: "/demo",
