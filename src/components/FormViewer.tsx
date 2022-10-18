@@ -4,6 +4,7 @@ import FormField, { IFormField } from "./FormField"
 export interface IForm {
   id: string
   title: string
+  breadcrumbs?: Array<{ link: string; title: string }>
   components: Array<IFormGroup | IFormField>
   submit: string
 }
@@ -31,7 +32,18 @@ function FormViewer(props: IForm) {
 
   return (
     <form className="m-6 flex flex-col">
-      <h1 className="text-lg font-medium leading-6">{props.title}</h1>
+      {props.breadcrumbs !== null && props.breadcrumbs !== undefined ? (
+        <div className="breadcrumbs max-w-xs text-sm">
+          <ul>
+            {props.breadcrumbs.map((b) => (
+              <li>{b.title}</li>
+            ))}
+            <li>{props.title}</li>
+          </ul>
+        </div>
+      ) : (
+        <h1 className="text-lg font-medium leading-6">{props.title}</h1>
+      )}
       <div className="divider" />
       {props.components.map((c) =>
         c.type === "FORM_FIELD" ? <FormField {...c} /> : <FormGroup {...c} />

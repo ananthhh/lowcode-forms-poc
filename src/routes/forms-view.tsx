@@ -30,7 +30,7 @@ const docRecieved: IForm = {
         {
           type: "FORM_FIELD",
           field: {
-            type: "FORM_FIELD_RADIO",
+            type: "FORM_FIELD_CHECKBOX",
             id: "radio-core-documents-fact-find",
             label: "Fact Find",
             attributes: {},
@@ -139,9 +139,9 @@ const startCaseReview: IForm = {
             label: "Add New Advisor",
             attributes: {},
             modal: {
-              type: "FORM_GROUP",
               id: "modal-add-advisor",
-              title: "Add new advisor",
+              title: "Add New Advisor",
+              submit: "Add",
               components: [
                 {
                   type: "FORM_FIELD",
@@ -358,6 +358,7 @@ const investmentReview: IForm = {
         id: "review-outcome-button",
         label: "Review Outcomes",
         attributes: {},
+        link: "review-outcomes",
       },
     },
 
@@ -474,15 +475,142 @@ const investmentReview: IForm = {
     },
   ],
 }
+
+const reviewOutcomes: IForm = {
+  id: "form-review-outcomes",
+  title: "Review Outcomes",
+  breadcrumbs: [
+    { link: "investement-review", title: "FUR Case - Investment Review" },
+  ],
+  submit: "Save Changes",
+  components: [
+    {
+      type: "FORM_GROUP",
+      id: "review-outcomes",
+      title: "Ref 1",
+      components: [
+        {
+          type: "FORM_FIELD",
+          field: {
+            type: "FORM_FIELD_TEXTAREA",
+            id: "review-outcome-question",
+            label: "Question",
+            attributes: { defaultValue: "long question", disabled: true },
+          },
+        },
+        {
+          type: "FORM_FIELD",
+          field: {
+            type: "FORM_FIELD_TEXTAREA",
+            id: "review-outcome-saf-output",
+            label: "SAF Output",
+            attributes: {},
+          },
+        },
+        {
+          type: "FORM_FIELD",
+          field: {
+            type: "FORM_FIELD_BUTTON",
+            id: "review-outcome-rc",
+            label: "RC",
+            attributes: {},
+          },
+        },
+        {
+          type: "FORM_FIELD",
+          field: {
+            type: "FORM_FIELD_SELECT",
+            id: "ro-decision",
+            label: "Decision",
+            attributes: {},
+            values: [{ label: "Adequate", value: "adequate" }],
+          },
+        },
+        {
+          type: "FORM_FIELD",
+          field: {
+            type: "FORM_FIELD_SELECT",
+            id: "ro-file-quality",
+            label: "File Qualtiy",
+            attributes: {},
+            values: [{ label: "Adequate", value: "adequate" }],
+          },
+        },
+      ],
+    },
+    {
+      type: "FORM_GROUP",
+      id: "review-outcomes",
+      title: "Ref 1.71",
+      components: [
+        {
+          type: "FORM_FIELD",
+          field: {
+            type: "FORM_FIELD_TEXTAREA",
+            id: "review-outcome-question",
+            label: "Question",
+            attributes: {
+              defaultValue: "long question for another ref ",
+              disabled: true,
+            },
+          },
+        },
+        {
+          type: "FORM_FIELD",
+          field: {
+            type: "FORM_FIELD_TEXTAREA",
+            id: "review-outcome-saf-output",
+            label: "SAF Output",
+            attributes: {},
+          },
+        },
+        {
+          type: "FORM_FIELD",
+          field: {
+            type: "FORM_FIELD_BUTTON",
+            id: "review-outcome-rc",
+            label: "RC",
+            attributes: {},
+          },
+        },
+        {
+          type: "FORM_FIELD",
+          field: {
+            type: "FORM_FIELD_SELECT",
+            id: "ro-decision",
+            label: "Decision",
+            attributes: {},
+            values: [{ label: "Adequate", value: "adequate" }],
+          },
+        },
+        {
+          type: "FORM_FIELD",
+          field: {
+            type: "FORM_FIELD_SELECT",
+            id: "ro-file-quality",
+            label: "File Qualtiy",
+            attributes: {},
+            values: [{ label: "Adequate", value: "adequate" }],
+          },
+        },
+      ],
+    },
+  ],
+}
 const forms = {
   "doc-received": docRecieved,
   "start-case-review": startCaseReview,
   "investment-review": investmentReview,
+  "review-outcomes": reviewOutcomes,
 }
 
 function FormsViewRoute() {
   const { id } = useParams<{
-    id: "doc-received" | "start-case-review" | "investment-review"
+    id:
+      | "doc-received"
+      | "start-case-review"
+      | "investment-review"
+      | "review-outcomes"
   }>()
   return <FormViewer {...forms[id ?? "doc-received"]} />
 }
