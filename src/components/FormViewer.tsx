@@ -1,5 +1,9 @@
 import FormGroup, { IFormGroup } from "./FormGroup"
 import FormField, { IFormField } from "./FormField"
+import { FormContext } from "./FormContext"
+import { useContext, useRef } from "react"
+import { useActor } from "@xstate/react"
+import * as R from "remeda"
 
 export interface IForm {
   id: string
@@ -29,10 +33,34 @@ function FormViewer(props: IForm) {
   //   console.log(data);
   //   setErrors(validate(data, validation));
   // }
+  const { formService } = useContext(FormContext)
+  const [state] = useActor(formService)
+  const { send } = formService
+  const formRef = useRef<HTMLFormElement>(null)
 
+  const isFormInvaild = JSON.stringify(state?.value)?.includes("invalid")
+
+  const onFormInput = () => {
+    if (formRef.current === null) return
+    const formData = new FormData(formRef.current)
+    const data: Record<string, string | string[]> = {}
+    for (const [key, value] of formData.entries()) {
+      if (R.isDefined(data[key])) {
+        data[key] = [data[key] as string, value as string]
+        break
+      }
+      data[key] = value as string
+    }
+    send("input", { formData: data })
+  }
   return (
-    <form className="m-6 flex flex-col">
-      {props.breadcrumbs !== null && props.breadcrumbs !== undefined ? (
+    <form
+      className="m-6 flex flex-col"
+      onBlur={onFormInput}
+      onChange={onFormInput}
+      ref={formRef}
+    >
+      {R.isDefined(props.breadcrumbs) ? (
         <div className="breadcrumbs max-w-xs text-sm">
           <ul>
             {props.breadcrumbs.map((b) => (
@@ -49,7 +77,11 @@ function FormViewer(props: IForm) {
         c.type === "FORM_FIELD" ? <FormField {...c} /> : <FormGroup {...c} />
       )}
       <div className="flex justify-end space-x-2">
-        <button type="submit" className="btn btn-primary">
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={isFormInvaild}
+        >
           {props.submit}
         </button>
       </div>

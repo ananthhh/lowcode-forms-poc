@@ -1,3 +1,6 @@
+import { useActor } from "@xstate/react"
+import { useContext } from "react"
+import { FormContext } from "./FormContext"
 import FormFieldButton, { IFormFieldButton } from "./FormFieldButton"
 import FormFieldCheckbox, { IFormFieldCheckbox } from "./FormFieldCheckbox"
 import FormFieldFile, { IFormFieldFile } from "./FormFieldFile"
@@ -18,7 +21,19 @@ export interface IFormField {
     | IFormFieldButton
 }
 
+export function useFormField(fieldId: string) {
+  const formContext = useContext(FormContext)
+  const [state] = useActor(formContext.formService)
+
+  const shouldHide = state?.matches(fieldId + ".hidden")
+  const isInvalid = state?.matches(fieldId + ".visible.invalid")
+
+  return { shouldHide, isInvalid }
+}
+
 function FormField(props: IFormField) {
+  const { shouldHide } = useFormField(props.field.id)
+  if (shouldHide) return null
   switch (props.field.type) {
     case "FORM_FIELD_RADIO":
       return <FormFieldRadio {...props.field} />

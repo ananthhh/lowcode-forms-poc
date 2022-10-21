@@ -9,6 +9,7 @@ import RadixRoute from "./routes/demo-radix"
 import DemoRoute from "./routes/demo"
 import FormsRoute from "./routes/forms"
 import FormsViewRoute from "./routes/forms-view"
+import FormsXstateRoute from "./routes/forms-xstate"
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/forms/:id",
     element: <FormsViewRoute />,
+  },
+  {
+    path: "/forms/xstate",
+    element: <FormsXstateRoute />,
   },
   {
     path: "/demo",
